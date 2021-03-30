@@ -7,7 +7,18 @@ import numpy as np
 print("==================================")
 cn 	  =int(input("Jml check node     : "))
 sn 	  =int(input("Jml symbol node    : "))
-sn_deg=int(input("Symbol node degree : "))
+#sn_deg=int(input("Symbol node degree : "))
+
+deg_new = str(input("Symbol node degree: "))
+
+list_deg = deg_new.split (",")
+
+sn_deg_new = []
+for i in list_deg:
+	sn_deg_new.append(int(i))
+
+print(sn_deg_new[2])
+
 
 matrix = np.zeros((cn, sn))
 print(matrix)
@@ -24,14 +35,14 @@ for x in range(sn):
 	idx=0
 	for y in range(cn):
 		if x==0: #jika proses pada index sn pertama
-			if deg_snx<sn_deg:
+			if deg_snx<sn_deg_new[x]:
 				#print("sn ke " +str(x+1))
 				matrix[y,x] = 1
 				deg_snx += 1
 				lcn[y]=1
 
 		else:	#jika proses pada index sn kedua dan seterusnya
-			if deg_snx<sn_deg:
+			if deg_snx<sn_deg_new[x]:
 				print("proses sn ke " + str(x+1))
 				print("mencari koneksi ke " + str(deg_snx+1))
 				if min(lcn) != max(lcn): 	#jika terdapat degree terkecil pada cn
