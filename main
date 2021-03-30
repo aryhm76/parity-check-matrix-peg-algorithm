@@ -1,0 +1,72 @@
+import numpy as np
+
+#check_node adl variabel utk menampung input jml checkNode
+#symbol_node adl variabel utk menampung input jml symbolNode
+#degree adl variabel utk menampung input jml degree
+
+print("==================================")
+cn 	  =int(input("Jml check node     : "))
+sn 	  =int(input("Jml symbol node    : "))
+sn_deg=int(input("Symbol node degree : "))
+
+matrix = np.zeros((cn, sn))
+print(matrix)
+print("\n")
+
+lcn=np.zeros(cn).tolist()
+lsn=np.zeros(sn).tolist()
+
+lcn_con=[]
+lsn_con=[]
+
+for x in range(sn):
+	deg_snx=0
+	idx=0
+	for y in range(cn):
+		if x==0: #jika proses pada index sn pertama
+			if deg_snx<sn_deg:
+				#print("sn ke " +str(x+1))
+				matrix[y,x] = 1
+				deg_snx += 1
+				lcn[y]=1
+
+		else:	#jika proses pada index sn kedua dan seterusnya
+			if deg_snx<sn_deg:
+				print("proses sn ke " + str(x+1))
+				print("mencari koneksi ke " + str(deg_snx+1))
+				if min(lcn) != max(lcn): 	#jika terdapat degree terkecil pada cn
+					idx = lcn.index(min(lcn))
+					print("degree terkecil pada posisi " + str(idx+1))
+					matrix[idx,x] = 1
+					deg_snx += 1
+					new_deg = lcn[idx]+1
+					lcn[idx] = new_deg
+				else: #jika nilai degree pada semua cn sama
+					print("degree sama semua")
+					if idx < len(lcn)-1:
+						print("posisi cn ke " + str(idx+1))
+						nexpos = idx+1
+						matrix[nexpos,x] = 1
+						deg_snx += 1
+						new_deg = lcn[nexpos]+1
+						lcn[nexpos] = new_deg
+
+					else:
+						print("posisi cn sebelumnya pd index terakhir " + str(idx+1))
+						matrix[0,x] = 1
+						deg_snx += 1
+						new_deg = lcn[0]+1
+						lcn[0] = new_deg
+										
+
+				#print(idx+1)
+				#print(lcn)
+				print(matrix)
+				print("\n")
+
+
+	if x == sn-1:
+		print("*** Proses Selesai ***")
+
+
+
