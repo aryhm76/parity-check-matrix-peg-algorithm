@@ -1,24 +1,19 @@
 import numpy as np
 
-#check_node adl variabel utk menampung input jml checkNode
-#symbol_node adl variabel utk menampung input jml symbolNode
-#degree adl variabel utk menampung input jml degree
-
 print("==================================")
-cn 	  =int(input("Jml check node     : "))
-sn 	  =int(input("Jml symbol node    : "))
+cn 	  =   int(input("Jml check node     : "))
+sn 	  =   int(input("Jml symbol node    : "))
 #sn_deg=int(input("Symbol node degree : "))
 
-deg_new = str(input("Symbol node degree: "))
+deg = str(input("Symbol node degree : "))
 
-list_deg = deg_new.split (",")
+list_deg = deg.split (",")
 
-sn_deg_new = []
+sn_deg = []
 for i in list_deg:
-	sn_deg_new.append(int(i))
+	sn_deg.append(int(i))
 
-print(sn_deg_new[2])
-
+print(sn_deg[2])
 
 matrix = np.zeros((cn, sn))
 print(matrix)
@@ -27,22 +22,19 @@ print("\n")
 lcn=np.zeros(cn).tolist()
 lsn=np.zeros(sn).tolist()
 
-lcn_con=[]
-lsn_con=[]
-
 for x in range(sn):
 	deg_snx=0
 	idx=0
 	for y in range(cn):
 		if x==0: #jika proses pada index sn pertama
-			if deg_snx<sn_deg_new[x]:
+			if deg_snx<sn_deg[x]:
 				#print("sn ke " +str(x+1))
 				matrix[y,x] = 1
 				deg_snx += 1
 				lcn[y]=1
 
 		else:	#jika proses pada index sn kedua dan seterusnya
-			if deg_snx<sn_deg_new[x]:
+			if deg_snx<sn_deg[x]:
 				print("proses sn ke " + str(x+1))
 				print("mencari koneksi ke " + str(deg_snx+1))
 				if min(lcn) != max(lcn): 	#jika terdapat degree terkecil pada cn
@@ -80,4 +72,14 @@ for x in range(sn):
 		print("*** Proses Selesai ***")
 
 
+for i in range(sn):
+	conn=[]
+	for j in range(cn):
+		con=[]
+		if matrix[i,j] == 1:
+			con.append(i)
+			con.append(j)
 
+			conn.insert(i,con)
+
+	print (conn)
